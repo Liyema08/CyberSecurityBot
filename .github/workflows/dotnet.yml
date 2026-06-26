@@ -3,6 +3,8 @@ name: .NET CI Build
 on:
   push:
     branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
 
 jobs:
   build:
@@ -16,8 +18,11 @@ jobs:
       with:
         dotnet-version: 6.0.x
     
+    - name: List files (debugging)
+      run: dir
+    
     - name: Restore dependencies
-      run: dotnet restore CyberSecurityBot.sln
+      run: dotnet restore CyberSecurityBot.slnx
     
     - name: Build
-      run: dotnet build CyberSecurityBot.sln --configuration Release
+      run: dotnet build CyberSecurityBot.slnx --configuration Release
