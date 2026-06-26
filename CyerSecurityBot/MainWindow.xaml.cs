@@ -19,7 +19,7 @@ namespace CyberSecurityBot
     public partial class MainWindow : Window
     {
         // Create an instance of our chatbot engine
-        private ChatbotEngine chatbot;
+        private ChatbotEngine chatbot = null!;
 
         public MainWindow()
         {
@@ -58,6 +58,9 @@ namespace CyberSecurityBot
 
             // Show the welcome message in the chat
             AddBotMessage(chatbot.GetWelcomeMessage());
+
+            // Show available commands (POE feature)
+            AddBotMessage("Type 'Help' to see all available commands.");
         }
 
         /// <summary>
@@ -145,7 +148,7 @@ namespace CyberSecurityBot
             ChatDisplay.Items.Add(new ChatMessage
             {
                 Message = $"System: {message}",
-                Style = null
+                Style = null!
             });
             ScrollToBottom();
         }
@@ -168,7 +171,7 @@ namespace CyberSecurityBot
     /// </summary>
     public class ChatMessage
     {
-        public string Message { get; set; }
-        public Style Style { get; set; }
+        public string Message { get; set; } = "";
+        public Style? Style { get; set; }
     }
 }

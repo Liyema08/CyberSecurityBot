@@ -32,14 +32,16 @@
     </Window.Resources>
 
     <!-- =============================================== -->
-    <!-- MAIN GRID - Divides window into 3 rows -->
+    <!-- MAIN GRID - Divides window into 4 rows -->
     <!-- =============================================== -->
     <Grid Margin="10">
 
         <!-- Row 0: Header (ASCII Art) -->
-        <!-- Row 1: Chat Display Area -->
-        <!-- Row 2: Input Area -->
+        <!-- Row 1: Commands Banner (NEW for POE) -->
+        <!-- Row 2: Chat Display Area -->
+        <!-- Row 3: Input Area -->
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -52,7 +54,7 @@
                 Background="#0F3460" 
                 CornerRadius="10" 
                 Padding="15" 
-                Margin="0,0,0,10">
+                Margin="0,0,0,5">
             <TextBlock x:Name="AsciiArtBlock" 
                        Text="YEMA-CYBER SECURITY BOT" 
                        FontFamily="Consolas" 
@@ -64,10 +66,26 @@
         </Border>
 
         <!-- =============================================== -->
-        <!-- ROW 1: CHAT DISPLAY AREA -->
+        <!-- ROW 1: COMMANDS BANNER (POE Feature) -->
+        <!-- =============================================== -->
+        <Border Grid.Row="1" 
+                Background="#16213E" 
+                CornerRadius="10" 
+                Padding="8" 
+                Margin="0,0,0,5">
+            <TextBlock Text="Commands: Add task: [title] | Show tasks | Complete task [id] | Delete task [id] | Start quiz | Activity log | Help"
+                       Foreground="#00FF00" 
+                       FontSize="11" 
+                       TextWrapping="Wrap" 
+                       TextAlignment="Center"
+                       FontFamily="Segoe UI"/>
+        </Border>
+
+        <!-- =============================================== -->
+        <!-- ROW 2: CHAT DISPLAY AREA -->
         <!-- =============================================== -->
         <ListBox x:Name="ChatDisplay" 
-                 Grid.Row="1" 
+                 Grid.Row="2" 
                  Background="#1A1A2E" 
                  BorderThickness="0"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -88,9 +106,9 @@
         </ListBox>
 
         <!-- =============================================== -->
-        <!-- ROW 2: INPUT AREA (TextBox + Send Button) -->
+        <!-- ROW 3: INPUT AREA (TextBox + Send Button) -->
         <!-- =============================================== -->
-        <Border Grid.Row="2" 
+        <Border Grid.Row="3" 
                 Background="#16213E" 
                 CornerRadius="10" 
                 Padding="10" 
