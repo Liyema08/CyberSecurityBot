@@ -18,11 +18,9 @@ jobs:
       with:
         dotnet-version: 6.0.x
     
-    - name: List files (debugging)
-      run: dir /s
-    
     - name: Restore dependencies
-      run: dotnet restore CyberSecurityBot/CyberSecurityBot.csproj
+      run: dotnet restore
     
     - name: Build
-      run: dotnet build CyberSecurityBot/CyberSecurityBot.csproj --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore
+      
