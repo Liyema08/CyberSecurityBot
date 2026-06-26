@@ -1,72 +1,219 @@
-# YEMA-CYBER Security Bot
+# YEMA-CYBER Security Bot - Complete POE
 
-A professional WPF cybersecurity awareness chatbot that educates users about online safety through interactive conversation.
+A comprehensive cybersecurity awareness chatbot with task management, quiz, NLP simulation, sentiment detection, and activity logging.
+
+---
 
 ## Project Overview
 
-This chatbot helps users learn about cybersecurity topics including password safety, phishing prevention, online privacy, safe browsing, malware protection, social engineering awareness, and software updates. The application features a modern graphical user interface with chat bubbles, voice greeting, and ASCII art logo.
+YEMA-CYBER Security Bot is a complete cybersecurity awareness application developed for the PROG6221 module. It started as a console application and evolved into a full WPF desktop application with MySQL database integration. The chatbot helps users learn about cybersecurity while managing tasks, testing knowledge through quizzes, and tracking activity.
+
+---
 
 ## Features
 
-### Core Functionality
-- **Voice Greeting** - Plays a welcome message when the application starts
-- **ASCII Art Logo** - Custom visual branding displayed in the header
-- **7 Cybersecurity Topics** - Covers passwords, phishing, privacy, safe browsing, malware, social engineering, and software updates
-- **Random Responses** - 6 different responses per topic for natural conversation
-- **Name Memory** - Remembers the user's name throughout the conversation
-- **Interest Memory** - Recalls topics the user wants to learn about
-- **Sentiment Detection** - Detects worried, curious, frustrated, and happy emotions
-- **Conversation Flow** - Handles follow-up questions like "tell me more"
-- **Error Handling** - Gracefully manages unrecognized inputs
+### Part 1: Console Chatbot
+- Voice greeting on application startup
+- ASCII art logo display
+- Cybersecurity topic responses (passwords, phishing, privacy, safe browsing, malware, social engineering, updates)
+- Personalized interaction using user's name
+- Console UI enhancements (colors, typing effects)
 
-### Technical Features
-- WPF GUI with custom chat bubble styles
-- Keyboard shortcuts (Enter key to send)
+### Part 2: WPF GUI Chatbot
+- Professional Windows Presentation Foundation (WPF) graphical user interface
+- Chat bubble design for user and bot messages
+- Memory system (remembers user name and interests)
+- Sentiment detection (worried, curious, frustrated, happy)
+- Random responses (6 variations per topic)
+- Conversation flow (handles "tell me more" follow-ups)
+- Keyboard support (Enter key to send messages)
 - Automatic scrolling to latest message
-- Professional color scheme and layout
 
-## How to Run
+### Part 3: POE Advanced Features
+- **Task Assistant** with MySQL database integration
+  - Add tasks with descriptions
+  - View all tasks with status (pending/complete)
+  - Mark tasks as complete
+  - Delete tasks
+  - Tasks stored persistently in MySQL database
 
-### Prerequisites
-- Windows operating system
-- .NET 6.0 SDK or later
-- Visual Studio 2022
+- **Cybersecurity Quiz (12 Questions)**
+  - Multiple choice and true/false questions
+  - Immediate feedback with explanations
+  - Final score tracking with motivational feedback
+  - Covers phishing, passwords, safe browsing, social engineering, 2FA, malware
 
-### Steps
-1. Clone the repository
-2. Open `CyberSecurityBot.sln` in Visual Studio 2022
-3. Build the solution (Ctrl + Shift + B)
-4. Run the application (F5)
+- **NLP Simulation**
+  - Flexible command recognition
+  - Understands different phrasings (e.g., "Show tasks", "View my tasks", "What tasks do I have?")
+  - Handles variations in user input
 
-## Example Conversations
+- **Activity Log**
+  - Tracks all user actions with timestamps
+  - Displays recent actions (last 5-10 entries)
+  - Logs tasks, quiz attempts, and interactions
 
-| You Type | Bot Response |
-|----------|--------------|
-| `My name is John` | "Nice to meet you, John! I'm your cybersecurity assistant..." |
-| `Tell me about passwords` | Random password safety tip (uses your name) |
-| `What is phishing?` | Random phishing prevention tip |
-| `I'm interested in privacy` | Remembers your interest for future responses |
-| `tell me more` | Provides additional tips on the last topic |
-| `I'm worried about scams` | Empathetic response with helpful information |
+---
 
-## Project Structure
+## Database Setup
 
-- MainWindow.xaml - GUI design
-- MainWindow.xaml.cs - GUI code-behind
-- ChatbotEngine.cs - Chatbot logic
-- greeting.wav - Voice greeting file
+### Step 1: Install MySQL
 
-## Technologies
+1. Download MySQL Installer from https://dev.mysql.com/downloads/installer/
+2. Run the installer and select **Developer Default**
+3. Set root password during installation (remember it!)
 
-- C# .NET 6.0
-- WPF (Windows Presentation Foundation)
-- GitHub Actions CI
+### Step 2: Create Database
 
-## Author
+Open MySQL Workbench and run:
 
+```sql
+CREATE DATABASE cybersecuritybot;
+USE cybersecuritybot;
+
+CREATE TABLE tasks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    reminder_date DATETIME,
+    is_completed BOOLEAN DEFAULT FALSE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE activity_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    action VARCHAR(255) NOT NULL,
+    details TEXT,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+Step 3: Update Connection String
+In ChatbotEngine.cs, find line 14 and update the password:
+
+csharp
+private string connectionString = "Server=localhost;Database=cybersecuritybot;Uid=root;Pwd=yourpassword;";
+How to Run
+Prerequisites
+Windows operating system
+
+.NET 6.0 SDK or later
+
+Visual Studio 2022
+
+MySQL Server 8.0 (for database features)
+
+Steps
+Clone the repository:
+
+bash
+git clone https://github.com/Liyema08/CyberSecurityBot.git
+Open CyberSecurityBot.sln in Visual Studio 2022
+
+Install required NuGet packages:
+
+Right-click Dependencies → Manage NuGet Packages
+
+Install MySql.Data (for database)
+
+Install System.Windows.Extensions (for audio)
+
+Set up MySQL database (see instructions above)
+
+Build the project: Ctrl + Shift + B
+
+Run the project: F5
+
+Commands
+Task Management
+Command	Description
+Add task: [title]	Create a new task
+Show tasks	View all tasks
+Complete task [id]	Mark task as complete
+Delete task [id]	Remove a task
+Quiz
+Command	Description
+Start quiz	Begin the cybersecurity quiz
+Activity
+Command	Description
+Activity log	View recent actions
+Help	Show all available commands
+Cybersecurity Topics
+Command	Description
+Tell me about passwords	Password safety tips
+What is phishing?	Phishing prevention tips
+Privacy tips	Online privacy advice
+Safe browsing	Browsing safety tips
+Project Structure
+text
+CyberSecurityBot/
+├── .github/
+│   └── workflows/
+│       └── dotnet.yml          # CI/CD pipeline
+├── CyberSecurityBot/
+│   ├── MainWindow.xaml          # GUI design
+│   ├── MainWindow.xaml.cs       # GUI code-behind
+│   ├── ChatbotEngine.cs         # Core logic (tasks, quiz, NLP, database)
+│   ├── greeting.wav             # Voice greeting file
+│   ├── App.xaml                 # Application configuration
+│   └── CyberSecurityBot.csproj  # Project file
+├── .gitattributes
+├── .gitignore
+├── README.md
+└── CyberSecurityBot.sln
+Technologies Used
+Technology	Purpose
+C# .NET 6.0	Programming language and framework
+WPF	Graphical User Interface
+MySQL	Database for task storage
+GitHub Actions	CI/CD automation
+NuGet	Package management
+XAML	GUI design language
+GitHub Actions CI Status
+https://github.com/Liyema08/CyberSecurityBot/actions/workflows/dotnet.yml/badge.svg
+
+The project uses GitHub Actions for continuous integration. Every push is automatically built and tested.
+
+Releases
+Version	Description
+v1.0	Part 1: Console Chatbot
+v2.0	Part 2: WPF Chatbot
+v3.0	Part 3/POE: Complete Application
+Example Conversation
+text
+You: My name is Liyema
+Bot: Nice to meet you, Liyema! I'm your cybersecurity assistant. Type 'Help' to see all commands.
+
+You: Add task: Enable two-factor authentication
+Bot: ✅ Task 'Enable two-factor authentication' added! Type 'Show tasks' to view all tasks.
+
+You: Show tasks
+Bot: 📋 YOUR TASKS
+[1] Enable two-factor authentication - ⏳ PENDING
+
+You: Start quiz
+Bot: 📝 Question 1/12
+What is phishing?
+1. A type of fishing
+2. A scam to steal personal info
+3. A computer virus
+4. A social media app
+
+You: 2
+Bot: ✅ Correct! Phishing is a scam where attackers pretend to be trusted organizations...
+
+You: Activity log
+Bot: 📋 ACTIVITY LOG (Recent Actions)
+[20:15:30] Task added: Enable two-factor authentication
+[20:16:45] User viewed tasks
+[20:17:10] Quiz: Correct answer
+Author
 Liyema
 
-## GitHub Repository
+Student Number: ST10495510
 
-https://github.com/Liyema08/CyberSecurityBot
+Module: PROG6221 - Programming 2A
+
+Institution: The Independent Institute of Education
+
+License
+Educational Project - All Rights Reserved
 
