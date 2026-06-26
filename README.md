@@ -1,89 +1,72 @@
-YEMA-CYBER Security Bot - Complete POE
+# YEMA-CYBER Security Bot - Complete POE
+
 A comprehensive cybersecurity awareness chatbot with task management, quiz, NLP simulation, sentiment detection, and activity logging.
 
-Project Overview
+---
+
+## Project Overview
+
 YEMA-CYBER Security Bot is a complete cybersecurity awareness application developed for the PROG6221 module. It started as a console application and evolved into a full WPF desktop application with MySQL database integration. The chatbot helps users learn about cybersecurity while managing tasks, testing knowledge through quizzes, and tracking activity.
 
-Features
-Part 1: Console Chatbot
-Voice greeting on application startup
+---
 
-ASCII art logo display
+## Features
 
-Cybersecurity topic responses (passwords, phishing, privacy, safe browsing, malware, social engineering, updates)
+### Part 1: Console Chatbot
+- Voice greeting on application startup
+- ASCII art logo display
+- Cybersecurity topic responses (passwords, phishing, privacy, safe browsing, malware, social engineering, updates)
+- Personalized interaction using user's name
+- Console UI enhancements (colors, typing effects)
 
-Personalized interaction using user's name
+### Part 2: WPF GUI Chatbot
+- Professional Windows Presentation Foundation (WPF) graphical user interface
+- Chat bubble design for user and bot messages
+- Memory system (remembers user name and interests)
+- Sentiment detection (worried, curious, frustrated, happy)
+- Random responses (6 variations per topic)
+- Conversation flow (handles "tell me more" follow-ups)
+- Keyboard support (Enter key to send messages)
+- Automatic scrolling to latest message
 
-Console UI enhancements (colors, typing effects)
+### Part 3: POE Advanced Features
+- **Task Assistant** with MySQL database integration
+  - Add tasks with descriptions
+  - View all tasks with status (pending/complete)
+  - Mark tasks as complete
+  - Delete tasks
+  - Tasks stored persistently in MySQL database
 
-Part 2: WPF GUI Chatbot
-Professional Windows Presentation Foundation (WPF) graphical user interface
+- **Cybersecurity Quiz (12 Questions)**
+  - Multiple choice and true/false questions
+  - Immediate feedback with explanations
+  - Final score tracking with motivational feedback
+  - Covers phishing, passwords, safe browsing, social engineering, 2FA, malware
 
-Chat bubble design for user and bot messages
+- **NLP Simulation**
+  - Flexible command recognition
+  - Understands different phrasings (e.g., "Show tasks", "View my tasks", "What tasks do I have?")
+  - Handles variations in user input
 
-Memory system (remembers user name and interests)
+- **Activity Log**
+  - Tracks all user actions with timestamps
+  - Displays recent actions (last 5-10 entries)
+  - Logs tasks, quiz attempts, and interactions
 
-Sentiment detection (worried, curious, frustrated, happy)
+---
 
-Random responses (6 variations per topic)
+## Database Setup
 
-Conversation flow (handles "tell me more" follow-ups)
+### Step 1: Install MySQL
 
-Keyboard support (Enter key to send messages)
+1. Download MySQL Installer from https://dev.mysql.com/downloads/installer/
+2. Run the installer and select **Developer Default**
+3. Set root password during installation (remember it!)
 
-Automatic scrolling to latest message
+### Step 2: Create Database
 
-Part 3: POE Advanced Features
-Task Assistant with MySQL database integration
-
-Add tasks with descriptions
-
-View all tasks with status (pending/complete)
-
-Mark tasks as complete
-
-Delete tasks
-
-Tasks stored persistently in MySQL database
-
-Cybersecurity Quiz (12 Questions)
-
-Multiple choice and true/false questions
-
-Immediate feedback with explanations
-
-Final score tracking with motivational feedback
-
-Covers phishing, passwords, safe browsing, social engineering, 2FA, malware
-
-NLP Simulation
-
-Flexible command recognition
-
-Understands different phrasings (e.g., "Show tasks", "View my tasks", "What tasks do I have?")
-
-Handles variations in user input
-
-Activity Log
-
-Tracks all user actions with timestamps
-
-Displays recent actions (last 5-10 entries)
-
-Logs tasks, quiz attempts, and interactions
-
-Database Setup
-Step 1: Install MySQL
-Download MySQL Installer from https://dev.mysql.com/downloads/installer/
-
-Run the installer and select Developer Default
-
-Set root password during installation (remember it!)
-
-Step 2: Create Database
 Open MySQL Workbench and run:
 
-text
 CREATE DATABASE cybersecuritybot;
 USE cybersecuritybot;
 
@@ -102,64 +85,80 @@ CREATE TABLE activity_log (
     details TEXT,
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-Step 3: Update Connection String
+
+### Step 3: Update Connection String
+
 In ChatbotEngine.cs, find line 14 and update the password:
 
-text
 private string connectionString = "Server=localhost;Database=cybersecuritybot;Uid=root;Pwd=yourpassword;";
-How to Run
-Prerequisites
-Windows operating system
 
-.NET 6.0 SDK or later
+---
 
-Visual Studio 2022
+## How to Run
 
-MySQL Server 8.0 (for database features)
+### Prerequisites
+- Windows operating system
+- .NET 6.0 SDK or later
+- Visual Studio 2026
+- MySQL Server 8.0 (for database features)
 
-Steps
-Clone the repository:
+### Steps
 
-text
-git clone https://github.com/Liyema08/CyberSecurityBot.git
-Open CyberSecurityBot.sln in Visual Studio 2022
+1. Clone the repository:
+   git clone https://github.com/Liyema08/CyberSecurityBot.git
 
-Install required NuGet packages:
+2. Open CyberSecurityBot.sln in Visual Studio 2022
 
-Right-click Dependencies → Manage NuGet Packages
+3. Install required NuGet packages:
+   - Right-click Dependencies → Manage NuGet Packages
+   - Install MySql.Data (for database)
+   - Install System.Windows.Extensions (for audio)
 
-Install MySql.Data (for database)
+4. Set up MySQL database (see instructions above)
 
-Install System.Windows.Extensions (for audio)
+5. Build the project: Ctrl + Shift + B
 
-Set up MySQL database (see instructions above)
+6. Run the project: F5
 
-Build the project: Ctrl + Shift + B
+---
 
-Run the project: F5
+## Commands
 
-Commands
-Task Management
-Command	Description
-Add task: [title]	Create a new task
-Show tasks	View all tasks
-Complete task [id]	Mark task as complete
-Delete task [id]	Remove a task
-Quiz
-Command	Description
-Start quiz	Begin the cybersecurity quiz
-Activity
-Command	Description
-Activity log	View recent actions
-Help	Show all available commands
-Cybersecurity Topics
-Command	Description
-Tell me about passwords	Password safety tips
-What is phishing?	Phishing prevention tips
-Privacy tips	Online privacy advice
-Safe browsing	Browsing safety tips
-Project Structure
-text
+### Task Management
+
+| Command | Description |
+|---------|-------------|
+| Add task: [title] | Create a new task |
+| Show tasks | View all tasks |
+| Complete task [id] | Mark task as complete |
+| Delete task [id] | Remove a task |
+
+### Quiz
+
+| Command | Description |
+|---------|-------------|
+| Start quiz | Begin the cybersecurity quiz |
+
+### Activity
+
+| Command | Description |
+|---------|-------------|
+| Activity log | View recent actions |
+| Help | Show all available commands |
+
+### Cybersecurity Topics
+
+| Command | Description |
+|---------|-------------|
+| Tell me about passwords | Password safety tips |
+| What is phishing? | Phishing prevention tips |
+| Privacy tips | Online privacy advice |
+| Safe browsing | Browsing safety tips |
+
+---
+
+## Project Structure
+
 CyberSecurityBot/
 ├── .github/
 │   └── workflows/
@@ -175,24 +174,40 @@ CyberSecurityBot/
 ├── .gitignore
 ├── README.md
 └── CyberSecurityBot.sln
-Technologies Used
-Technology	Purpose
-C# .NET 6.0	Programming language and framework
-WPF	Graphical User Interface
-MySQL	Database for task storage
-GitHub Actions	CI/CD automation
-NuGet	Package management
-XAML	GUI design language
-GitHub Actions CI Status
+
+---
+
+## Technologies Used
+
+| Technology | Purpose |
+|------------|---------|
+| C# .NET 6.0 | Programming language and framework |
+| WPF | Graphical User Interface |
+| MySQL | Database for task storage |
+| GitHub Actions | CI/CD automation |
+| NuGet | Package management |
+| XAML | GUI design language |
+
+---
+
+## GitHub Actions CI Status
+
 The project uses GitHub Actions for continuous integration. Every push is automatically built and tested.
 
-Releases
-Version	Description
-v1.0	Part 1: Console Chatbot
-v2.0	Part 2: WPF Chatbot
-v3.0	Part 3/POE: Complete Application
-Example Conversation
-text
+---
+
+## Releases
+
+| Version | Description |
+|---------|-------------|
+| v1.0 | Part 1: Console Chatbot |
+| v2.0 | Part 2: WPF Chatbot |
+| v3.0 | Part 3/POE: Complete Application |
+
+---
+
+## Example Conversation
+
 You: My name is Liyema
 Bot: Nice to meet you, Liyema! I'm your cybersecurity assistant. Type 'Help' to see all commands.
 
@@ -219,17 +234,24 @@ Bot: ACTIVITY LOG (Recent Actions)
 [20:15:30] Task added: Enable two-factor authentication
 [20:16:45] User viewed tasks
 [20:17:10] Quiz: Correct answer
-Author
-Liyema
 
-Student Number: ST10495510
+---
 
-Module: PROG6221 - Programming 2A
+## Author
 
-Institution: The Independent Institute of Education
+**Liyema**
 
-License
+- Student Number: ST10495510
+- Module: PROG6221 - Programming 2A
+
+---
+
+## License
+
 Educational Project - All Rights Reserved
 
-Links
-GitHub Repository: https://github.com/Liyema08/CyberSecurityBot
+---
+
+## Links
+
+- GitHub Repository: https://github.com/Liyema08/CyberSecurityBot
